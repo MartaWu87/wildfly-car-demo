@@ -41,6 +41,8 @@ public class Model {
 
     @Column(name = "PRICE")
     private Long price;
+    @Column(name = "PHOTO_LINK")
+    private String PhotoLink;
 
     public Long getId() {
         return id;
@@ -96,5 +98,13 @@ public class Model {
 
     public void setPrice(Long price) {
         this.price = price;
+    }
+
+    public String getPhotoLink() {
+        return PhotoLink;
+    }
+
+    public void setPhotoLink(String photoLink) {
+        PhotoLink = photoLink;
     }
 }

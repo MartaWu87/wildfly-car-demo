@@ -21,47 +21,65 @@
 
 <body>
 
-<form jsf:id="modelForm" jsf:prependId="false">
+<div class="Column">
+    <form jsf:id="modelForm" jsf:prependId="false">
 
-    <h:selectOneRadio id="modelName" required="true" value="#{modelBean.modelName}">
-        <f:selectItems value="#{modelBean.names}" var="name"
-                       itemLabel="#{name}" itemValue="#{name}" />
-        <f:ajax event="change" render="modelList" listener="#{modelBean.takeAction()}"/>
-        <f:ajax event="change" render="modelEngine" listener="#{modelBean.takeAction()}"/>
-        <f:ajax event="change" render="modelDriveTrain" listener="#{modelBean.takeAction()}"/>
-        <f:ajax event="change" render="modelTransmission" listener="#{modelBean.takeAction()}"/>
-        <f:ajax event="change" render="modelVersion" listener="#{modelBean.takeAction()}"/>
-    </h:selectOneRadio><br/>
-    <h:selectOneRadio id="modelEngine" required="true" value="#{modelBean.modelEngine}">
-        <f:selectItems value="#{modelBean.engines}" var="engine"
-                       itemLabel="#{engine}" itemValue="#{engine}" />
-        <f:ajax event="change" render="modelList" listener="#{modelBean.takeAction()}"/>
-        <f:ajax event="change" render="modelDriveTrain" listener="#{modelBean.takeAction()}"/>
-        <f:ajax event="change" render="modelTransmission" listener="#{modelBean.takeAction()}"/>
-        <f:ajax event="change" render="modelVersion" listener="#{modelBean.takeAction()}"/>
-    </h:selectOneRadio><br/>
-    <h:selectOneRadio id="modelDriveTrain" required="true" value="#{modelBean.modelDriveTrain}">
-        <f:selectItems value="#{modelBean.driveTrains}" var="driveTrain"
-                       itemLabel="#{driveTrain}" itemValue="#{driveTrain}" />
-        <f:ajax event="change" render="modelList" listener="#{modelBean.takeAction()}"/>
-        <f:ajax event="change" render="modelTransmission" listener="#{modelBean.takeAction()}"/>
-        <f:ajax event="change" render="modelVersion" listener="#{modelBean.takeAction()}"/>
-    </h:selectOneRadio><br/>
-    <h:selectOneRadio id="modelTransmission" required="true" value="#{modelBean.modelTransmission}">
-        <f:selectItems value="#{modelBean.transmissions}" var="transmission"
-                       itemLabel="#{transmission}" itemValue="#{transmission}" />
-        <f:ajax event="change" render="modelList" listener="#{modelBean.takeAction()}"/>
-        <f:ajax event="change" render="modelVersion" listener="#{modelBean.takeAction()}"/>
-    </h:selectOneRadio><br/>
-    <h:selectOneRadio id="modelVersion" required="true" value="#{modelBean.modelVersion}">
-        <f:selectItems value="#{modelBean.versions}" var="version"
-                       itemLabel="#{version}" itemValue="#{version}" />
-        <f:ajax event="change" render="modelList" listener="#{modelBean.takeAction()}"/>
-    </h:selectOneRadio>
+        <h:selectOneRadio id="modelName" required="true" value="#{modelBean.modelName}">
+            <f:selectItems value="#{modelBean.names}" var="name"
+                           itemLabel="#{name}" itemValue="#{name}"/>
+            <f:ajax event="change" render="modelList" listener="#{modelBean.takeAction()}"/>
+            <f:ajax event="change" render="modelEngine" listener="#{modelBean.takeAction()}"/>
+            <f:ajax event="change" render="modelDriveTrain" listener="#{modelBean.takeAction()}"/>
+            <f:ajax event="change" render="modelTransmission" listener="#{modelBean.takeAction()}"/>
+            <f:ajax event="change" render="modelVersion" listener="#{modelBean.takeAction()}"/>
+            <f:ajax event="change" render="minimumCost" listener="#{modelBean.getCost()}"/>
+            <f:ajax event="change" render="model" listener="#{modelBean.takeAction()}"/>
+            <f:ajax event="change" render="photoLink" listener="#{modelBean.getPhotoLink()}"/>
+        </h:selectOneRadio><br/>
+        <h:selectOneRadio id="modelEngine" required="true" value="#{modelBean.modelEngine}">
+            <f:selectItems value="#{modelBean.engines}" var="engine"
+                           itemLabel="#{engine}" itemValue="#{engine}"/>
+            <f:ajax event="change" render="modelList" listener="#{modelBean.takeAction()}"/>
+            <f:ajax event="change" render="modelDriveTrain" listener="#{modelBean.takeAction()}"/>
+            <f:ajax event="change" render="modelTransmission" listener="#{modelBean.takeAction()}"/>
+            <f:ajax event="change" render="modelVersion" listener="#{modelBean.takeAction()}"/>
+            <f:ajax event="change" render="minimumCost" listener="#{modelBean.getCost()}"/>
+        </h:selectOneRadio><br/>
+        <h:selectOneRadio id="modelDriveTrain" required="true" value="#{modelBean.modelDriveTrain}">
+            <f:selectItems value="#{modelBean.driveTrains}" var="driveTrain"
+                           itemLabel="#{driveTrain}" itemValue="#{driveTrain}"/>
+            <f:ajax event="change" render="modelList" listener="#{modelBean.takeAction()}"/>
+            <f:ajax event="change" render="modelTransmission" listener="#{modelBean.takeAction()}"/>
+            <f:ajax event="change" render="modelVersion" listener="#{modelBean.takeAction()}"/>
+            <f:ajax event="change" render="minimumCost" listener="#{modelBean.getCost()}"/>
+        </h:selectOneRadio><br/>
+        <h:selectOneRadio id="modelTransmission" required="true" value="#{modelBean.modelTransmission}">
+            <f:selectItems value="#{modelBean.transmissions}" var="transmission"
+                           itemLabel="#{transmission}" itemValue="#{transmission}"/>
+            <f:ajax event="change" render="modelList" listener="#{modelBean.takeAction()}"/>
+            <f:ajax event="change" render="modelVersion" listener="#{modelBean.takeAction()}"/>
+            <f:ajax event="change" render="minimumCost" listener="#{modelBean.getCost()}"/>
+        </h:selectOneRadio><br/>
+        <h:selectOneRadio id="modelVersion" required="true" value="#{modelBean.modelVersion}">
+            <f:selectItems value="#{modelBean.versions}" var="version"
+                           itemLabel="#{version}" itemValue="#{version}"/>
+            <f:ajax event="change" render="modelList" listener="#{modelBean.takeAction()}"/>
+            <f:ajax event="change" render="minimumCost" listener="#{modelBean.getCost()}"/>
+        </h:selectOneRadio>
+    </form>
+</div>
 
+<div style="width: 100%" class="Row">
+    <div class="Column">
+        <div>
+            <img jsf:id="photoLink" src="#{modelBean.photoLink}"></img>
+        </div>
+        <div><p jsf:id="model"><h:outputLabel value="Model: " rendered="#{modelBean.cost != null}"/>#{modelBean.modelName}</p>
+            <p jsf:id="minimumCost"><h:outputLabel value="Cena od: " rendered="#{modelBean.cost != null}"/>#{modelBean.cost}</p>
+        </div>
+    </div>
 
-
-    <div jsf:id="modelList">
+    <div jsf:id="modelList" class="Column">
         <ul>
             <ui:repeat value="#{modelBean.allModels}" var="c">
                 <li>#{c.id} : #{c.name} : #{c.engine} : #{c.drivetrain} : #{c.transmission} : #{c.version} : #{c.price}</li>
@@ -69,8 +87,13 @@
         </ul>
     </div>
 
-</form>
+</div>
+<div>
+    ORDER FORM:
+    <form>
 
+    </form>
+</div>
 </body>
 
 </html>

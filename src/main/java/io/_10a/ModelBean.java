@@ -2,19 +2,22 @@ package io._10a;
 
 import io._10a.controller.ModelController;
 import io._10a.entity.Model;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Named
 @ViewScoped
 public class ModelBean implements Serializable {
+
+    Logger logger = LoggerFactory.getLogger(ModelBean.class);
 
     @Inject
     ModelController modelController;
@@ -31,6 +34,9 @@ public class ModelBean implements Serializable {
     private String modelDriveTrain;
     private String modelTransmission;
     private String modelVersion;
+
+    private Long cost;
+    private String photoLink;
 
     @PostConstruct
     public void init() {
@@ -142,6 +148,22 @@ public class ModelBean implements Serializable {
         this.modelVersion = modelVersion;
     }
 
+    public Long getCost() {
+        return cost;
+    }
+
+    public String getPhotoLink() {
+        return photoLink;
+    }
+
+    public void setPhotoLink(String photoLink) {
+        this.photoLink = photoLink;
+    }
+
+    public void setCost(Long cost) {
+        this.cost = cost;
+    }
+
     public void takeAction() {
         modelsFilter = modelController.findModel(modelName, modelEngine, modelDriveTrain, modelTransmission, modelVersion);
         engines = models.stream()
@@ -170,5 +192,18 @@ public class ModelBean implements Serializable {
                 .map(el -> el.getVersion())
                 .distinct()
                 .collect(Collectors.toList());
+        logger.info("Cost value before stream: {}", cost);
+        cost=modelsFilter.stream()
+                .map(Model::getPrice)
+                .min(Long::compareTo).get();
+        logger.info("Cost value after stream: {}", cost);
+        logger.info("photoLink value after stream: {}", photoLink);
+        photoLink=modelsFilter.stream()
+                .filter(el -> el.getName().equals(modelName))
+                .map(p -> p.getPhotoLink())
+                .findFirst()
+                .map(String::new)
+                .orElse("test");
+        logger.info("photoLink value after stream: {}", photoLink);
     }
 }

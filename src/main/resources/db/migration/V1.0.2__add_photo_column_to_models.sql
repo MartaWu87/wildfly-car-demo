@@ -1,0 +1,2 @@
+ALTER TABLE MODELS
+    ADD PHOTO_LINK varchar(255);
