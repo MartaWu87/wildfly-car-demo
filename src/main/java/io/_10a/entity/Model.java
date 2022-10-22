@@ -3,15 +3,20 @@ package io._10a.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="MODELS")
+@Table(name = "MODELS")
 @NamedQueries({
         @NamedQuery(
-                name = "Model.findAll",
+                name = "Model.findAllModels",
                 query = "SELECT m FROM Model m"
         ),
         @NamedQuery(
-                name = "Model.startingWith",
-                query = "SELECT m FROM Model m WHERE m.name LIKE :likeExpression"
+                name = "Model.findModel",
+                query = "SELECT m FROM Model m WHERE " +
+                        "(:modelName IS NULL OR m.name = :modelName) AND " +
+                        "(:modelEngine IS NULL OR m.engine = :modelEngine) AND " +
+                        "(:modelDriveTrain IS NULL OR m.drivetrain = :modelDriveTrain) AND " +
+                        "(:modelTransmission IS NULL OR m.transmission = :modelTransmission) AND " +
+                        "(:modelVersion IS NULL OR m.version = :modelVersion)"
         )})
 public class Model {
 
@@ -22,7 +27,74 @@ public class Model {
     @Column(name = "NAME")
     private String name;
 
-    @Column(name="PRICE")
+    @Column(name = "ENGINE")
+    private String engine;
+
+    @Column(name = "DRIVETRAIN")
+    private String drivetrain;
+
+    @Column(name = "TRANSMISSION")
+    private String transmission;
+
+    @Column(name = "VERSION")
+    private String version;
+
+    @Column(name = "PRICE")
     private Long price;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEngine() {
+        return engine;
+    }
+
+    public void setEngine(String engine) {
+        this.engine = engine;
+    }
+
+    public String getDrivetrain() {
+        return drivetrain;
+    }
+
+    public void setDrivetrain(String drivetrain) {
+        this.drivetrain = drivetrain;
+    }
+
+    public String getTransmission() {
+        return transmission;
+    }
+
+    public void setTransmission(String transmission) {
+        this.transmission = transmission;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
+    }
 }

@@ -5,11 +5,14 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import java.io.Serializable;
 
 @Named
-@ApplicationScoped
-public class StartupBean {
+@ViewScoped
+public class StartupBean implements Serializable {
 
 	Logger logger = LoggerFactory.getLogger(getClass());
 

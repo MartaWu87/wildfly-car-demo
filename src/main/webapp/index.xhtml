@@ -21,32 +21,50 @@
 
 <body>
 
-<form jsf:id="customerForm" jsf:prependId="false">
-
-    <input type="text" jsf:id="customerFilter" value="#{customerBean.filter}">
-        <f:ajax delay="250" execute="@this" render="customerList" listener="#{customerBean.takeAction()}" event="keyup"/>
-    </input>
-
-    <div jsf:id="customerList">
-        <ul>
-            <ui:repeat value="#{customerBean.allCustomers}" var="c">
-                <li>#{c.id}: #{c.name}</li>
-            </ui:repeat>
-        </ul>
-    </div>
-
-</form>
-
 <form jsf:id="modelForm" jsf:prependId="false">
 
-    <input type="text" jsf:id="modelFilter" value="#{customerBean.filter}">
-        <f:ajax delay="250" execute="@this" render="modelList" listener="#{modelBean.takeAction()}" event="keyup"/>
-    </input>
+    <h:selectOneRadio id="modelName" required="true" value="#{modelBean.modelName}">
+        <f:selectItems value="#{modelBean.names}" var="name"
+                       itemLabel="#{name}" itemValue="#{name}" />
+        <f:ajax event="change" render="modelList" listener="#{modelBean.takeAction()}"/>
+        <f:ajax event="change" render="modelEngine" listener="#{modelBean.takeAction()}"/>
+        <f:ajax event="change" render="modelDriveTrain" listener="#{modelBean.takeAction()}"/>
+        <f:ajax event="change" render="modelTransmission" listener="#{modelBean.takeAction()}"/>
+        <f:ajax event="change" render="modelVersion" listener="#{modelBean.takeAction()}"/>
+    </h:selectOneRadio><br/>
+    <h:selectOneRadio id="modelEngine" required="true" value="#{modelBean.modelEngine}">
+        <f:selectItems value="#{modelBean.engines}" var="engine"
+                       itemLabel="#{engine}" itemValue="#{engine}" />
+        <f:ajax event="change" render="modelList" listener="#{modelBean.takeAction()}"/>
+        <f:ajax event="change" render="modelDriveTrain" listener="#{modelBean.takeAction()}"/>
+        <f:ajax event="change" render="modelTransmission" listener="#{modelBean.takeAction()}"/>
+        <f:ajax event="change" render="modelVersion" listener="#{modelBean.takeAction()}"/>
+    </h:selectOneRadio><br/>
+    <h:selectOneRadio id="modelDriveTrain" required="true" value="#{modelBean.modelDriveTrain}">
+        <f:selectItems value="#{modelBean.driveTrains}" var="driveTrain"
+                       itemLabel="#{driveTrain}" itemValue="#{driveTrain}" />
+        <f:ajax event="change" render="modelList" listener="#{modelBean.takeAction()}"/>
+        <f:ajax event="change" render="modelTransmission" listener="#{modelBean.takeAction()}"/>
+        <f:ajax event="change" render="modelVersion" listener="#{modelBean.takeAction()}"/>
+    </h:selectOneRadio><br/>
+    <h:selectOneRadio id="modelTransmission" required="true" value="#{modelBean.modelTransmission}">
+        <f:selectItems value="#{modelBean.transmissions}" var="transmission"
+                       itemLabel="#{transmission}" itemValue="#{transmission}" />
+        <f:ajax event="change" render="modelList" listener="#{modelBean.takeAction()}"/>
+        <f:ajax event="change" render="modelVersion" listener="#{modelBean.takeAction()}"/>
+    </h:selectOneRadio><br/>
+    <h:selectOneRadio id="modelVersion" required="true" value="#{modelBean.modelVersion}">
+        <f:selectItems value="#{modelBean.versions}" var="version"
+                       itemLabel="#{version}" itemValue="#{version}" />
+        <f:ajax event="change" render="modelList" listener="#{modelBean.takeAction()}"/>
+    </h:selectOneRadio>
+
+
 
     <div jsf:id="modelList">
         <ul>
-            <ui:repeat value="#{modelBean.allCustomers}" var="m">
-                <li>#{m.id}: #{m.name}</li>
+            <ui:repeat value="#{modelBean.allModels}" var="c">
+                <li>#{c.id} : #{c.name} : #{c.engine} : #{c.drivetrain} : #{c.transmission} : #{c.version} : #{c.price}</li>
             </ui:repeat>
         </ul>
     </div>

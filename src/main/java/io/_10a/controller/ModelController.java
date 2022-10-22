@@ -1,8 +1,6 @@
 package io._10a.controller;
 
-import io._10a.entity.Customer;
 import io._10a.entity.Model;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,12 +12,18 @@ public class ModelController {
     @PersistenceContext
     EntityManager entityManager;
 
-    public List<Model> findAll() {
-        return entityManager.createNamedQuery("Model.findAll", Model.class).getResultList();
+    public List<Model> findAllModels() {
+        return entityManager.createNamedQuery("Model.findAllModels", Model.class).getResultList();
     }
 
-    public List<Model> findLike(String prefix) {
-        return entityManager.createNamedQuery("Model.startingWith", Model.class)
-                .setParameter("likeExpression", prefix + "%").getResultList();
+
+    public List<Model> findModel(String modelName, String modelEngine, String modelDriveTrain, String modelTransmission, String modelVersion) {
+        return entityManager.createNamedQuery("Model.findModel", Model.class)
+                .setParameter("modelName", modelName)
+                .setParameter("modelEngine", modelEngine)
+                .setParameter("modelDriveTrain", modelDriveTrain)
+                .setParameter("modelTransmission", modelTransmission)
+                .setParameter("modelVersion", modelVersion)
+                .getResultList();
     }
 }
