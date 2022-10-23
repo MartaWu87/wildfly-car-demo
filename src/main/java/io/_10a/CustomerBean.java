@@ -1,6 +1,9 @@
 package io._10a;
+
 import io._10a.controller.CustomerController;
 import io._10a.entity.Customer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -13,32 +16,78 @@ import java.util.List;
 @ViewScoped
 public class CustomerBean implements Serializable {
 
-	@Inject
-	CustomerController customerController;
+    Logger logger = LoggerFactory.getLogger(CustomerBean.class);
 
-	private List<Customer> customers;
+    @Inject
+    CustomerController customerController;
 
-	private String filter;
+    private Long id;
+    private String name;
+    private String email;
 
-	@PostConstruct
-	public void init() {
-		customers = customerController.findAll();
-	}
+//    Methods
 
-	public List<Customer> getAllCustomers() {
-		return customers;
-	}
+    @PostConstruct
+    public void init() {
+    }
 
-	public String getFilter() {
-		return filter;
-	}
+    public void addCustomer() {
+        Customer customer = new Customer();
+        logger.info("name: {}", name);
+        logger.info("email: {}", email);
+        customer.setName(name);
+        customer.setEmail(email);
+        customerController.addCustomer(customer);
+    }
 
-	public void setFilter(String filter) {
-		this.filter = filter;
+    public void loadCustomer(Long customerId) {
+        Customer customer = customerController.findById(customerId);
+        setName(customer.getName());
+        setEmail(customer.getEmail());
+        setId(customer.getId());
+    }
 
-	}
+    public void updateCustomer() {
+        Customer customer = new Customer();
+        logger.info("name: {}", name);
+        logger.info("email: {}", email);
+        customer.setName(name);
+        customer.setEmail(email);
+        customer.setId(id);
+        customerController.updateCustomer(customer);
+    }
 
-	public void takeAction() {
-		this.customers = customerController.findLike(filter);
-	}
+    public void deleteCustomer(Long customerId) {
+        customerController.deleteCustomer(customerId);
+    }
+
+    public List<Customer> loadCustomers(){
+        return customerController.findAllCustomers();
+    }
+
+//    Getters and Setters
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

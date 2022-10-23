@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<head jsf:id="head">
+    <title>Title</title>
+    <h:outputStylesheet library="css" name="main.css"/>
+</head>
+<body>
+<h:button value="main" outcome="index?faces-redirect=true" /><br/>
+    <h:outputLabel value="database test"/>:<h:outputText value="#{customerBean.loadCustomers()}"/>
+    <br/>
+    <h3>Customers Table</h3>
+    <h:form>
+    <h:outputLabel>Name:</h:outputLabel><h:inputText id="name" value="#{customerBean.name}"/><br/>
+    <h:outputLabel>Email:</h:outputLabel><h:inputText id="email" value="#{customerBean.email}"/><br/>
+    <h:inputHidden value="#{customerBean.id}"/>
+    <h:commandButton value="Add Customer" action="#{customerBean.addCustomer()}" />
+    <h:commandButton value="Update Customer" action="#{customerBean.updateCustomer()}" /><br/><br/>
+    </h:form>
+    <h:form>
+    <h:dataTable value="#{customerBean.loadCustomers()}" var="customer"
+                 styleClass="table" headerClass="table-header" rowClasses="table-odd-row, table-even-row">
+        <h:column>
+            <f:facet name="header">id</f:facet>
+            #{customer.id}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Name</f:facet>
+            #{customer.name}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Email</f:facet>
+            #{customer.email}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Action</f:facet>
+            <h:commandLink value="Update" action="#{customerBean.loadCustomer(customer.id)}"/>|||
+            <h:commandLink value="Delete" action="#{customerBean.deleteCustomer(customer.id)}"/>
+        </h:column>
+    </h:dataTable>
+    </h:form>
+</body>
+
+</html>

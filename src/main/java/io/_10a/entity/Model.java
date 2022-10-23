@@ -10,6 +10,10 @@ import javax.persistence.*;
                 query = "SELECT m FROM Model m"
         ),
         @NamedQuery(
+                name = "Model.findById",
+                query = "SELECT m FROM Model m WHERE m.id=:id"
+        ),
+        @NamedQuery(
                 name = "Model.findModel",
                 query = "SELECT m FROM Model m WHERE " +
                         "(:modelName IS NULL OR m.name = :modelName) AND " +
@@ -21,6 +25,7 @@ import javax.persistence.*;
 public class Model {
 
     @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "MODEL_ID")
     private Long id;
 

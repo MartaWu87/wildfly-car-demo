@@ -16,6 +16,12 @@ public class ModelController {
         return entityManager.createNamedQuery("Model.findAllModels", Model.class).getResultList();
     }
 
+    public Model findById(Long id) {
+        return entityManager.createNamedQuery("Model.findById", Model.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
 
     public List<Model> findModel(String modelName, String modelEngine, String modelDriveTrain, String modelTransmission, String modelVersion) {
         return entityManager.createNamedQuery("Model.findModel", Model.class)

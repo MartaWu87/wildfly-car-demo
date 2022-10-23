@@ -1,6 +1,7 @@
 package io._10a;
 
 import io._10a.controller.ModelController;
+import io._10a.entity.Customer;
 import io._10a.entity.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,9 +35,10 @@ public class ModelBean implements Serializable {
     private String modelDriveTrain;
     private String modelTransmission;
     private String modelVersion;
-
     private Long cost;
     private String photoLink;
+    private Model model;
+    private Customer customer = new Customer();
 
     @PostConstruct
     public void init() {
@@ -164,19 +166,40 @@ public class ModelBean implements Serializable {
         this.cost = cost;
     }
 
+    public Model getModel() {
+        return model;
+    }
+
+    public void setModel(Model model) {
+        this.model = model;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
     public void takeAction() {
         modelsFilter = modelController.findModel(modelName, modelEngine, modelDriveTrain, modelTransmission, modelVersion);
+        logger.info("engines value before stream: {}", engines);
         engines = models.stream()
                 .filter(el -> el.getName().equals(modelName))
                 .map(el -> el.getEngine())
                 .distinct()
                 .collect(Collectors.toList());
+        logger.info("engines value after stream: {}", engines);
+        logger.info("driveTrains value before stream: {}", driveTrains);
         driveTrains=models.stream()
                 .filter(el -> el.getName().equals(modelName))
                 .filter(el -> el.getEngine().equals(modelEngine))
                 .map(el -> el.getDrivetrain())
                 .distinct()
                 .collect(Collectors.toList());
+        logger.info("driveTrains value after stream: {}", driveTrains);
+        logger.info("transmissions value before stream: {}", transmissions);
         transmissions=models.stream()
                 .filter(el -> el.getName().equals(modelName))
                 .filter(el -> el.getEngine().equals(modelEngine))
@@ -184,6 +207,8 @@ public class ModelBean implements Serializable {
                 .map(el -> el.getTransmission())
                 .distinct()
                 .collect(Collectors.toList());
+        logger.info("transmissions value after stream: {}", transmissions);
+        logger.info("versions value before stream: {}", versions);
         versions=models.stream()
                 .filter(el -> el.getName().equals(modelName))
                 .filter(el -> el.getEngine().equals(modelEngine))
@@ -192,12 +217,13 @@ public class ModelBean implements Serializable {
                 .map(el -> el.getVersion())
                 .distinct()
                 .collect(Collectors.toList());
-        logger.info("Cost value before stream: {}", cost);
+        logger.info("versions value after stream: {}", versions);
+        logger.info("cost value before stream: {}", cost);
         cost=modelsFilter.stream()
                 .map(Model::getPrice)
                 .min(Long::compareTo).get();
-        logger.info("Cost value after stream: {}", cost);
-        logger.info("photoLink value after stream: {}", photoLink);
+        logger.info("cost value after stream: {}", cost);
+        logger.info("photoLink value before stream: {}", photoLink);
         photoLink=modelsFilter.stream()
                 .filter(el -> el.getName().equals(modelName))
                 .map(p -> p.getPhotoLink())
@@ -205,5 +231,15 @@ public class ModelBean implements Serializable {
                 .map(String::new)
                 .orElse("test");
         logger.info("photoLink value after stream: {}", photoLink);
+        logger.info("model value before stream: {}", model);
+        model=modelsFilter.stream()
+                .filter(el -> el.getName().equals(modelName))
+                .filter(el -> el.getEngine().equals(modelEngine))
+                .filter(el -> el.getDrivetrain().equals(modelDriveTrain))
+                .filter(el -> el.getTransmission().equals(modelTransmission))
+                .filter(el -> el.getVersion().equals(modelVersion))
+                .findFirst()
+                .orElse(new Model());
+        logger.info("model value after stream: {}", model);
     }
 }

@@ -5,19 +5,19 @@ import javax.persistence.*;
 @Entity
 @Table(name = "CUSTOMERS")
 @NamedQueries({
-@NamedQuery(
-		name = "Customers.findAll",
-		query = "SELECT c FROM Customer c"
-),
-@NamedQuery(
-	name = "Customers.startingWith",
-	query = "SELECT c FROM Customer c WHERE c.name LIKE :likeExpression"
-)})
+		@NamedQuery(
+				name = "Customer.findAllCustomers",
+				query = "SELECT c FROM Customer c ORDER BY c.id DESC"
+		),
+		@NamedQuery(
+				name = "Customer.findById",
+				query = "SELECT c FROM Customer c WHERE c.id=:id"
+		)})
 public class Customer {
 
 	@Id
-	@Column(name = "CUSTOMER_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "CUSTOMER_ID")
 	private Long id;
 
 	@Column(name = "NAME")

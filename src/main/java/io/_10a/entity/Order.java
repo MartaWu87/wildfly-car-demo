@@ -2,23 +2,23 @@ package io._10a.entity;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "ORDERS")
 public class Order {
 
     @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column(name = "ORDER_ID")
     private Long id;
 
-    @Column(name = "MODEL_ID")
-    @OneToMany
-    private List<Model> modelList;
+    @JoinColumn(name = "MODEL_ID")
+    @OneToOne(cascade = CascadeType.ALL)
+    private Model model;
 
-    @Column(name = "CUSTOMER_ID")
-    @OneToMany
-    private List<Customer> customerList;
+    @JoinColumn(name = "CUSTOMER_ID")
+    @OneToOne(cascade = CascadeType.ALL)
+    private Customer customer;
 
     @Column(name = "ORDER_DATE)")
     private Date orderDate;
@@ -31,20 +31,21 @@ public class Order {
         this.id = id;
     }
 
-    public List<Model> getModelList() {
-        return modelList;
+
+    public Model getModel() {
+        return model;
     }
 
-    public void setModelList(List<Model> modelList) {
-        this.modelList = modelList;
+    public void setModel(Model model) {
+        this.model = model;
     }
 
-    public List<Customer> getCustomerList() {
-        return customerList;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerList(List<Customer> customerList) {
-        this.customerList = customerList;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public Date getOrderDate() {
@@ -56,5 +57,4 @@ public class Order {
     public void setOrderDate() {
         this.orderDate = new Date();
     }
-
 }
