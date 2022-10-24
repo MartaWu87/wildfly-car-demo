@@ -6,7 +6,7 @@
   Time: 15:36
 -->
 <!DOCTYPE html>
-
+<!---->
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:a="http://xmlns.jcp.org/jsf/facelets"
@@ -14,78 +14,78 @@
       xmlns:jsf="http://xmlns.jcp.org/jsf"
 >
 
-<head jsf:id="head">
-    <title>Title</title>
-    <h:outputStylesheet library="css" name="main.css"/>
-</head>
+<!--<head jsf:id="head">-->
+<!--    <title>Title</title>-->
+<!--    <h:outputStylesheet library="css" name="main.css"/>-->
+<!--</head>-->
 
-<h:body>
-    <p>Hello from JSF: #{startupBean.dupa}</p><br/>
+<!--<h:body>-->
+<!--    <p>Hello from JSF: #{startupBean.dupa}</p><br/>-->
 
-    <form jsf:id="loginForm" jsf:prependId="false">
-        <input jsf:id="loginInput" type="text" placeholder="Login" value="#{loginBean.login}"/>
-        <input jsf:id="passwordIput" type="password" placeholder="Hasło" value="#{loginBean.password}"/>
-        <h:commandButton value="Zaloguj" action="#{loginBean.takeAction()}"/>
-    </form>
+<!--    <form jsf:id="loginForm" jsf:prependId="false">-->
+<!--        <input jsf:id="loginInput" type="text" placeholder="Login" value="#{loginBean.login}"/>-->
+<!--        <input jsf:id="passwordIput" type="password" placeholder="Hasło" value="#{loginBean.password}"/>-->
+<!--        <h:commandButton value="Zaloguj" action="#{loginBean.takeAction()}"/>-->
+<!--    </form>-->
 
-    <p>Passed login: #{loginBean.login}, count: #{loginBean.count}</p>
+<!--    <p>Passed login: #{loginBean.login}, count: #{loginBean.count}</p>-->
 
-    <br/>
-    <br/>
-    <p>#{startupBean.getAllTranslation()}</p>
-    <h:form>
-        <h:inputText id="id" value="#{startupBean.id}"/><br/>
-        <h:commandButton value="Submit" action="index"/>
-    </h:form>
-    <h:selectOneMenu value="#{startupBean.id}">
-        <f:selectItem itemValue="pl" itemLabel="pl"/><br/>
-        <f:selectItem itemValue="de" itemLabel="de"/><br/>
-    </h:selectOneMenu><br/>
-    <h:selectOneRadio value="#{startupBean.id}">
-        <f:selectItem itemValue="pl" itemLabel="pl"/><br/>
-        <f:selectItem itemValue="de" itemLabel="de"/><br/>
-    </h:selectOneRadio><br/>
-    <p>#{startupBean.getTranslation()}</p>
-    <br/>
-    <h:form>
-        <h:inputText id="editId" value="#{startupBean.id}"></h:inputText><br/>
-        <h:inputText id="editText" value="#{startupBean.text}"></h:inputText><br/>
-        <h:commandButton value="Submit" action="#{startupBean.createTranslation()}"/>
-    </h:form>
-    <a:repeat value="#{startupBean.getAllTranslation()}" var="item">
-        <h:outputText value="#{item.key}"/> : <h:outputText value="#{item.value}"/><br/>
-    </a:repeat>
-    <br/>
+<!--    <br/>-->
+<!--    <br/>-->
+<!--    <p>#{startupBean.getAllTranslation()}</p>-->
+<!--    <h:form>-->
+<!--        <h:inputText id="id" value="#{startupBean.id}"/><br/>-->
+<!--        <h:commandButton value="Submit" action="index"/>-->
+<!--    </h:form>-->
+<!--    <h:selectOneMenu value="#{startupBean.id}">-->
+<!--        <f:selectItem itemValue="pl" itemLabel="pl"/><br/>-->
+<!--        <f:selectItem itemValue="de" itemLabel="de"/><br/>-->
+<!--    </h:selectOneMenu><br/>-->
+<!--    <h:selectOneRadio value="#{startupBean.id}">-->
+<!--        <f:selectItem itemValue="pl" itemLabel="pl"/><br/>-->
+<!--        <f:selectItem itemValue="de" itemLabel="de"/><br/>-->
+<!--    </h:selectOneRadio><br/>-->
+<!--    <p>#{startupBean.getTranslation()}</p>-->
+<!--    <br/>-->
+<!--    <h:form>-->
+<!--        <h:inputText id="editId" value="#{startupBean.id}"></h:inputText><br/>-->
+<!--        <h:inputText id="editText" value="#{startupBean.text}"></h:inputText><br/>-->
+<!--        <h:commandButton value="Submit" action="#{startupBean.createTranslation()}"/>-->
+<!--    </h:form>-->
+<!--    <a:repeat value="#{startupBean.getAllTranslation()}" var="item">-->
+<!--        <h:outputText value="#{item.key}"/> : <h:outputText value="#{item.value}"/><br/>-->
+<!--    </a:repeat>-->
+<!--    <br/>-->
 
-    <form jsf:id="loginForm" jsf:prependId="false">
-        <input jsf:id="loginInput" type="text" placeholder="Login" value="#{loginBean.login}"/>
-        <input jsf:id="passwordInput" type="password" placeholder="Hasło" value="#{loginBean.password}"/>
-        <h:commandButton value="Zaloguj" action="#{loginBean.takeAction()}"/>
-    </form>
+<!--    <form jsf:id="loginForm" jsf:prependId="false">-->
+<!--        <input jsf:id="loginInput" type="text" placeholder="Login" value="#{loginBean.login}"/>-->
+<!--        <input jsf:id="passwordInput" type="password" placeholder="Hasło" value="#{loginBean.password}"/>-->
+<!--        <h:commandButton value="Zaloguj" action="#{loginBean.takeAction()}"/>-->
+<!--    </form>-->
 
-    <p>Passed login: #{loginBean.login}, count: #{loginBean.count}</p>
-    <br/>
-    <form jsf:id="translationForm" jsf:prependId="false">
-        <input jsf:id="idInput" type="text" placeholder="id" value="#{loginBean.id}"/>
-        <input jsf:id="textInput" type="text" placeholder="Welcome text" value="#{loginBean.text}"/><br/>
-        <h:commandButton value="Add" action="#{loginBean.addTranslation(loginBean.id, loginBean.text)}"/>
-    </form>
-    <h:dataTable value="#{loginBean.translations}" var="singleTranslation" border="1">
-        <h:column>
-            <f:facet name="header">id</f:facet>
-            #{singleTranslation.key}
-        </h:column>
-        <h:column>
-            <f:facet name="header">Text</f:facet>
-            #{singleTranslation.value}
-        </h:column>
-        <h:column>
-            <f:facet name="header">Buttons</f:facet>
-            <h:commandButton value="Update"/>
-            |
-            <h:commandButton value="Delete" action="#{loginBean.deleteTranslation(singleTranslation.key)}"/>
-        </h:column>
-    </h:dataTable>
-</h:body>
+<!--    <p>Passed login: #{loginBean.login}, count: #{loginBean.count}</p>-->
+<!--    <br/>-->
+<!--    <form jsf:id="translationForm" jsf:prependId="false">-->
+<!--        <input jsf:id="idInput" type="text" placeholder="id" value="#{loginBean.id}"/>-->
+<!--        <input jsf:id="textInput" type="text" placeholder="Welcome text" value="#{loginBean.text}"/><br/>-->
+<!--        <h:commandButton value="Add" action="#{loginBean.addTranslation(loginBean.id, loginBean.text)}"/>-->
+<!--    </form>-->
+<!--    <h:dataTable value="#{loginBean.translations}" var="singleTranslation" border="1">-->
+<!--        <h:column>-->
+<!--            <f:facet name="header">id</f:facet>-->
+<!--            #{singleTranslation.key}-->
+<!--        </h:column>-->
+<!--        <h:column>-->
+<!--            <f:facet name="header">Text</f:facet>-->
+<!--            #{singleTranslation.value}-->
+<!--        </h:column>-->
+<!--        <h:column>-->
+<!--            <f:facet name="header">Buttons</f:facet>-->
+<!--            <h:commandButton value="Update"/>-->
+<!--            |-->
+<!--            <h:commandButton value="Delete" action="#{loginBean.deleteTranslation(singleTranslation.key)}"/>-->
+<!--        </h:column>-->
+<!--    </h:dataTable>-->
+<!--</h:body>-->
 
 </html>
