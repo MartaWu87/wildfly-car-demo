@@ -22,11 +22,6 @@ public class OrderBean implements Serializable {
 
     public String createOrder(Model model) {
         logger.info("model.name: {} {} {} {} {} {}", model.getName(), model.getEngine(), model.getDrivetrain(), model.getTransmission(), model.getVersion(), model.getPrice());
-//        logger.info("customer.name: {} {}", customer.getName(), customer.getEmail());
-        Customer customer = new Customer();
-        customer.setName("mario");
-        customer.setEmail("mario@wp.pl");
-        orderController.createOrder(model, customer);
         return "success";
 
     }

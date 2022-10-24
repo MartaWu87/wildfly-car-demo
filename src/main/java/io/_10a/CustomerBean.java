@@ -25,6 +25,9 @@ public class CustomerBean implements Serializable {
     private String name;
     private String email;
 
+    private List<Customer> customers;
+    private String filter;
+
 //    Methods
 
     @PostConstruct
@@ -33,8 +36,7 @@ public class CustomerBean implements Serializable {
 
     public void addCustomer() {
         Customer customer = new Customer();
-        logger.info("name: {}", name);
-        logger.info("email: {}", email);
+        logger.info("Customer name: {} email: {}", name, email);
         customer.setName(name);
         customer.setEmail(email);
         customerController.addCustomer(customer);
@@ -47,10 +49,9 @@ public class CustomerBean implements Serializable {
         setId(customer.getId());
     }
 
-    public void updateCustomer() {
-        Customer customer = new Customer();
-        logger.info("name: {}", name);
-        logger.info("email: {}", email);
+    public void updateCustomer(Long customerId) {
+        Customer customer = customerController.findById(customerId);
+        logger.info("Update customer name: {} to {} email: {} to {}", customer.getName(), name, customer.getEmail(), email);
         customer.setName(name);
         customer.setEmail(email);
         customer.setId(id);
@@ -62,7 +63,12 @@ public class CustomerBean implements Serializable {
     }
 
     public List<Customer> loadCustomers(){
-        return customerController.findAllCustomers();
+        customers = customerController.findAllCustomers();
+        return customers;
+    }
+
+    public List<Customer> getAllCustomers() {
+        return customers;
     }
 
 //    Getters and Setters
@@ -89,5 +95,17 @@ public class CustomerBean implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getFilter() {
+        return filter;
+    }
+
+    public void setFilter(String filter) {
+        this.filter = filter;
+    }
+
+    public void takeAction() {
+        this.customers = customerController.findLike(filter);
     }
 }

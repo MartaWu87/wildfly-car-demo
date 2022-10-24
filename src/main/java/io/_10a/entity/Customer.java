@@ -7,7 +7,11 @@ import javax.persistence.*;
 @NamedQueries({
 		@NamedQuery(
 				name = "Customer.findAllCustomers",
-				query = "SELECT c FROM Customer c ORDER BY c.id DESC"
+				query = "SELECT c FROM Customer c ORDER BY c.id"
+		),
+		@NamedQuery(
+				name = "Customers.startingWith",
+				query = "SELECT c FROM Customer c WHERE c.name LIKE :likeExpression"
 		),
 		@NamedQuery(
 				name = "Customer.findById",

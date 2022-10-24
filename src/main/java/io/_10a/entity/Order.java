@@ -13,11 +13,11 @@ public class Order {
     private Long id;
 
     @JoinColumn(name = "MODEL_ID")
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Model model;
 
     @JoinColumn(name = "CUSTOMER_ID")
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Customer customer;
 
     @Column(name = "ORDER_DATE)")
